@@ -1,0 +1,11 @@
+{% extends 'base.html.j2 '%}
+
+{% block body %} 
+<form method="post">
+<label for="customer_id">Customer_ID:</label>
+<input type="text" id="customer_id" name="customer-id">
+<label for="car_id">Car_ID:</label>
+<input type="text" id="car_id" name="car-id">
+<input type="submit" value="Submit">
+</form>
+{% endblock %}
