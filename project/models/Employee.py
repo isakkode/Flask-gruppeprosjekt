@@ -1,15 +1,10 @@
 from neo4j import GraphDatabase, Driver, AsyncGraphDatabase, AsyncDriver
 import re
+from project.models.Car import _get_connection
 
-URI = "neo4j+s://8ec87af7.databases.neo4j.io"
-AUTH = ("neo4j", "U25elaIO30nL4UxJuC7Qi-S0tn8GmemiS3whj2UORUQ")
+URI = "neo4j+s://32ed12e3.databases.neo4j.io"
+AUTH = ("neo4j", "negOvq9lJfo4gE2zPUjDgqlx309UzNulKCiRWk2x0z8")
 
-
-def _get_connection() -> Driver:
-    driver = GraphDatabase.driver(URI, auth=AUTH)
-    driver.verify_connectivity()
-
-    return driver
 
 class Employee:
     def __init__(self, name, address, branch):
@@ -25,5 +20,3 @@ class Employee:
     
     def get_branch(self):
         return self.branch
-    
-

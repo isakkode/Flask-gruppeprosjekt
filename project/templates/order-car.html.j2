@@ -6,9 +6,14 @@
 
 <form method="post">
 <label for="customer_id">Customer_ID:</label>
-<input type="text" id="customer_id" name="customer-id">
+<input type="text" id="customer_id" name="customer-id"><br>
 <label for="car_id">Car_ID:</label>
-<input type="text" id="car_id" name="car-id">
+<input type="text" id="car_id" name="car-id"><br>
 <input type="submit" value="Submit">
 </form>
+
+{% if data == False %}
+<h3> You cannot book this car<br>Either you have already rented or booked a car, or this car is already booked or rented </h3>
+{% endif %}
+
 {% endblock %}
