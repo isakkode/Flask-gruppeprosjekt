@@ -1,6 +1,6 @@
 from project import app
 from flask import render_template, request, redirect, url_for
-from project.models.queries import book
+from project.models.queries import book, cancel_booking
 
 @app.route('/', methods=["GET", "POST"])
 def index():
@@ -9,10 +9,9 @@ def index():
 
 @app.route('/order-car.html.j2', methods=["GET", "POST"])
 def order_car():
-    data = "placeholder"
+    data = None
     if request.method == "POST":
         result = request.form.to_dict()
-        print(result["customer-id"])
         data = book(result["car-id"], result["customer-id"])
 
     return render_template('order-car.html.j2', data=data)
@@ -20,10 +19,12 @@ def order_car():
 
 @app.route('/cancel-order-car.html.j2', methods=["GET", "POST"])
 def return_order_car():
+    data = None
     if request.method == "POST":
         result = request.form.to_dict()
+        data = cancel_booking(result["car-id"], result["customer-id"])
      
-    return render_template('cancel-order-car.html.j2')
+    return render_template('cancel-order-car.html.j2', data=data)
 
 
 @app.route('/rent-car.html.j2', methods=["GET", "POST"])

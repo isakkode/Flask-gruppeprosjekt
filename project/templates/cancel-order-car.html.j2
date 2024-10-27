@@ -5,10 +5,20 @@
 <h2> Cancel car order </h2>
 
 <form method="post">
-<label for="customer_id">Customer_ID:</label>
-<input type="text" id="customer_id" name="customer-id">
-<label for="car_id">Car_ID:</label>
-<input type="text" id="car_id" name="car-id">
+<label for="customer_id">Customer_ID:</label><br>
+<input type="text" id="customer_id" name="customer-id"><br>
+<label for="car_id">Car_ID:</label><br>
+<input type="text" id="car_id" name="car-id"><br>
 <input type="submit" value="Submit">
 </form>
+
+
+{% if data == None %}
+<h3> Waiting for submission of details. </h3>
+{% elif data == False %}
+<h3> This customer has not booked this car,<br> therefore cannot cancel the order.</h3>
+{% else %}
+<h3> Order cancelled! </h3>
+{% endif %}
+
 {% endblock %}

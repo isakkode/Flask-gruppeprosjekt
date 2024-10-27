@@ -12,8 +12,12 @@
 <input type="submit" value="Submit">
 </form>
 
-{% if data == False %}
-<h3> You cannot book this car<br>Either you have already rented or booked a car, or this car is already booked or rented </h3>
+{% if data == None %}
+<h3> Waiting for submission of details. </h3>
+{% elif data == False %}
+<h3> You cannot book this car<br>Either you have already rented or booked a car, or this car is already booked or rented. </h3>
+{% else %}
+<h3> Car booked! </h3>
 {% endif %}
 
 {% endblock %}

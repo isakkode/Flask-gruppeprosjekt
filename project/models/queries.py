@@ -37,5 +37,19 @@ def book(carid, customerid):
         driver.close()
         return True
     else:
-        driver.close
+        driver.close()
         return False
+
+
+def cancel_booking(carid, customerid):
+    canbecancelled = False
+    driver = _get_connection()
+
+    records, summary, keys = driver.execute_query("MATCH (cust:CUSTOMER {customer_id: $customer}) - [BOOKS] -> (car:CAR {car_id: $car}) RETURN car", car=carid, customer=customerid)
+    if len(records) > 0:
+        canbecancelled = True
+    
+    if canbecancelled:
+        records, summary, keys = driver.execute_query("MATCH (cust:CUSTOMER {customer_id: $customer}) - [r:BOOKS] -> (car:CAR {car_id: $car}) DELETE r SET car.status = 'Available'", car=carid, customer=customerid)
+    driver.close()
+    return canbecancelled
