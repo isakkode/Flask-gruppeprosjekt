@@ -1,8 +1,8 @@
 from neo4j import GraphDatabase, Driver, AsyncGraphDatabase, AsyncDriver
 import re
 
-URI = "neo4j+s://8ec87af7.databases.neo4j.io"
-AUTH = ("neo4j", "U25elaIO30nL4UxJuC7Qi-S0tn8GmemiS3whj2UORUQ")
+URI = "neo4j+s://32ed12e3.databases.neo4j.io"
+AUTH = ("neo4j", "negOvq9lJfo4gE2zPUjDgqlx309UzNulKCiRWk2x0z8")
 
 
 def _get_connection() -> Driver:
@@ -10,7 +10,6 @@ def _get_connection() -> Driver:
     driver.verify_connectivity()
 
     return driver
-
 
 
 class Car:
