@@ -53,3 +53,42 @@ def cancel_booking(carid, customerid):
         records, summary, keys = driver.execute_query("MATCH (cust:CUSTOMER {customer_id: $customer}) - [r:BOOKS] -> (car:CAR {car_id: $car}) DELETE r SET car.status = 'Available'", car=carid, customer=customerid)
     driver.close()
     return canbecancelled
+
+
+def rent_car_query(carid, customerid):
+    isbooked = False
+    driver = _get_connection()
+
+    records, summary, keys = driver.execute_query("MATCH (c:CUSTOMER {customer_id: $customerid}) - [:BOOKS] -> (c1:CAR {car_id: $carid}) RETURN c, c1", customerid=customerid, carid=carid)
+    if len(records) > 0:
+        isbooked = True
+
+    if isbooked == True:
+            records, summary, keys = driver.execute_query("""MATCH (c:CUSTOMER {customer_id: $customerid}) - [r:BOOKS] -> (c1:CAR {car_id: $carid})
+                                                            DELETE r 
+                                                            CREATE (c)-[:RENTS]->(c1) 
+                                                            SET c1.status = 'Rented'""", customerid=customerid, carid=carid)
+
+    driver.close()
+    return isbooked
+
+
+def return_car_query(carid, customerid, status):
+    isrented = False
+    driver = _get_connection()
+
+    records, summary, keys = driver.execute_query("MATCH (c:CUSTOMER {customer_id: $customerid}) - [:RENTS] -> (c1:CAR {car_id: $carid}) RETURN c, c1", customerid=customerid, carid=carid)
+    if len(records) > 0:
+        isrented = True
+
+    if isrented:
+        records, summary, keys = driver.execute_query("""MATCH (c:CUSTOMER {customer_id: $customerid}) - [r:RENTS] -> (c1:CAR {car_id: $carid})
+                                                      DETACH DELETE r
+                                                      SET c1.status = $status""", customerid=customerid, carid=carid, status = status)
+        
+    driver.close()
+    return isrented
+
+
+
+

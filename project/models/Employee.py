@@ -39,6 +39,7 @@ class Employee:
         self.name = name
         self.address = address
         self.branch = branch
+        self.id = id
 
     def get_name(self):
         return self.name

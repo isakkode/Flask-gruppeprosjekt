@@ -11,4 +11,13 @@
 <input type="text" id="car_id" name="car-id">
 <input type="submit" value="Submit">
 </form>
+
+{% if data == None %}
+<h3> Waiting for submission of details. </h3>
+{% elif data == False %}
+<h3> You have not booked this car, therefore cannot rent it </h3>
+{% else %}
+<h3> Car rented! </h3>
+{% endif %}
+
 {% endblock %}
